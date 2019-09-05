@@ -1,4 +1,11 @@
-# PrivateEvents
-A private events where people create and signup for events
-Created by - Daniel Mitiku
+# README
 
+* Ruby version - 2.6.1
+
+* Configuration
+    Clone the repo
+    Migrate the database - rails db:migrate
+    Start the server - rails s
+    Enjoy!
+
+* Contributor - Daniel Mitiku
