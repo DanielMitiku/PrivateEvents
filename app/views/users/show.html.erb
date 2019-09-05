@@ -5,6 +5,32 @@
       <h1>
         Welcome <%= @user.name %>
       </h1>
+      <br>
+      <%= link_to "Create Event", new_event_path, method: :get, class: "btn-primary btn btn-xs" %>
+      <br><br><br>
+      <h1>Here are the Events you created</h1>
+      <br>
+      <%= will_paginate @events%>
+        <ul>
+          <% @events.each do |event| %>
+            <ul>
+              <%= link_to event.description, event %>
+              <p> Location: &nbsp<%= event.location %></p>
+              <p> Date: &nbsp<%= event.time %></p>
+              <% if current_user?(event.creator) %>
+                <%= link_to "delete", event, method: :delete, data: { confirm: "You sure?" }, class: "btn-danger btn btn-xs" %>
+                <%= link_to "edit", edit_event_path(event) , method: :get, class: "btn-primary btn btn-xs" %>     
+
+                <br>
+              
+              <% end %>
+
+            </ul>
+          <% end %>
+        </ul>
+        <hr>
+
+      <%= will_paginate @events%>
     </section>
   </aside>
 </div>

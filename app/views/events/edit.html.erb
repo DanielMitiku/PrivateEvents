@@ -1,2 +1,21 @@
-<h1>Events#edit</h1>
-<p>Find me in app/views/events/edit.html.erb</p>
+<% provide(:title, 'Edit Event') %>
+<h1>Edit Event</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@event) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+      
+      <%= f.label :description %>
+      <%= f.text_field :description, class: 'form-control' %>
+
+      <%= f.label :location %>
+      <%= f.text_field :location, class: 'form-control' %>
+
+      <%= f.label :datetime %>
+      <%= f.datetime_field :time, class: 'form-control' %>
+
+      <%= f.submit "Update Event", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

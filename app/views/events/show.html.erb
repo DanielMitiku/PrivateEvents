@@ -1,2 +1,16 @@
-<h1>Events#show</h1>
-<p>Find me in app/views/events/show.html.erb</p>
+<ul>
+  <p> Event Description: &nbsp<%= @event.description %> </p>
+  <p> Location: &nbsp<%= @event.location %></p>
+  <p> Date: &nbsp<%= @event.time %></p>
+  <p> Create by: &nbsp<%= @event.creator.name %></p>
+  <% if current_user?(@event.creator) %>
+  <div class="col-md-1">
+    <%= button_to "delete", @event, method: :delete,
+                                  data: { confirm: "You sure?" }, class: "btn-danger" %>
+  </div>
+  <div class="col-md-1">
+    <%= button_to "edit", edit_event_path(@event) , method: :get, class: "btn-primary" %>
+  </div>
+  <% end %>
+
+</ul>

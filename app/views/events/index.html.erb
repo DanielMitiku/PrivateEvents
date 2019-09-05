@@ -1,2 +1,21 @@
-<h1>Events#index</h1>
-<p>Find me in app/views/events/index.html.erb</p>
+<% provide(:title, 'All Events') %>
+<h1>All Events</h1>
+<% if logged_in? %>
+<div class="row align-items-center">
+<div class="col-md-2 col-md-offset-5">
+    <%= button_to "Create Event", new_event_path, method: :get, class: "btn-primary" %>
+</div>
+</div>
+<% end %>
+<%= will_paginate %>
+
+<ul>
+  <% @events.each do |event| %>
+    <%= render event %>
+    <br>
+    <hr>
+  <% end %>
+  
+</ul>
+
+<%= will_paginate %>

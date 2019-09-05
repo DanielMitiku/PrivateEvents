@@ -246,7 +246,7 @@ DEPENDENCIES
   byebug
   capybara (>= 2.15)
   carrierwave
-  coffee-rails (~> 4.2)
+  coffee-rails
   faker
   jbuilder (~> 2.7)
   jquery-rails (>= 4.3.1)
