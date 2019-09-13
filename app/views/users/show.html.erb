@@ -8,7 +8,11 @@
       <br>
       <%= link_to "Create Event", new_event_path, method: :get, class: "btn-primary btn btn-xs" %>
       <br><br><br>
-      <h1>Here are the Events you created</h1>
+      </section>
+  </aside>
+  </div>
+  <div class="row">
+      <h2 class="text-center">Here are the Events you created</h2>
       <br>
       <%= will_paginate @events%>
         <ul>
@@ -26,11 +30,65 @@
               <% end %>
 
             </ul>
+            <br>
           <% end %>
         </ul>
         <hr>
 
       <%= will_paginate @events%>
-    </section>
-  </aside>
+    <br>
+    <h2 class="text-center">Here are the Future Events you are attending</h2>
+      <br>
+      <% if @attending.upcoming.any?%>
+      <%= will_paginate @attending.upcoming%>
+        <ul>
+          <% @attending.upcoming.each do |event| %>
+            <ul>
+              <%= link_to event.description, event %>
+              <p> Location: &nbsp<%= event.location %></p>
+              <p> Date: &nbsp<%= event.time %></p>
+              <p> Created by: &nbsp<%= event.creator.name %></p>
+              <% if current_user?(event.creator) %>
+                <%= link_to "delete", event, method: :delete, data: { confirm: "You sure?" }, class: "btn-danger btn btn-xs" %>
+                <%= link_to "edit", edit_event_path(event) , method: :get, class: "btn-primary btn btn-xs" %>     
+
+                <br>
+              
+              <% end %>
+
+            </ul>
+            <br>
+          <% end %>
+        </ul>
+        <% end %>
+        <hr>
+
+      <%= will_paginate @attending.upcoming%>
+      <br>
+      <br>
+      <% if @attending.past.any?%>
+      <h2 class="text-center">Here are the Past Events you have attended</h2>
+      <%= will_paginate @attending.past%>
+        <ul>
+          <% @attending.past.each do |event| %>
+            <ul>
+              <%= link_to event.description, event %>
+              <p> Location: &nbsp<%= event.location %></p>
+              <p> Date: &nbsp<%= event.time %></p>
+               <p> Created by: &nbsp<%= event.creator.name %></p>
+              <% if current_user?(event.creator) %>
+                <%= link_to "delete", event, method: :delete, data: { confirm: "You sure?" }, class: "btn-danger btn btn-xs" %>
+                <br>
+              
+              <% end %>
+
+            </ul>
+            <br>
+          <% end %>
+        </ul>
+        <hr>
+
+      <%= will_paginate @attending.past %>
+      <% end %>
+</div>
 </div>

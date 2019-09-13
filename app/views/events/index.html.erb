@@ -3,14 +3,16 @@
 <% if logged_in? %>
 <div class="row align-items-center">
 <div class="col-md-2 col-md-offset-5">
-    <%= button_to "Create Event", new_event_path, method: :get, class: "btn-primary" %>
+    <%= button_to "Create Event", new_event_path, method: :get, class: "btn-primary btn" %>
 </div>
 </div>
 <% end %>
+<% if @events.upcoming.any?%>
+<h3 class="text-center"> Upcoming Events </h3>
 <%= will_paginate %>
 
 <ul>
-  <% @events.each do |event| %>
+  <% @events.upcoming.each do |event| %>
     <%= render event %>
     <br>
     <hr>
@@ -19,3 +21,20 @@
 </ul>
 
 <%= will_paginate %>
+<% end %>
+
+<% if @events.past.any?%>
+<h3 class="text-center"> Past Events </h3>
+<%= will_paginate %>
+
+<ul>
+  <% @events.past.each do |event| %>
+    <%= render event %>
+    <br>
+    <hr>
+  <% end %>
+  
+</ul>
+
+<%= will_paginate %>
+<% end %>

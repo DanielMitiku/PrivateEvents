@@ -2,7 +2,8 @@
   <p> Event Description: &nbsp<%= @event.description %> </p>
   <p> Location: &nbsp<%= @event.location %></p>
   <p> Date: &nbsp<%= @event.time %></p>
-  <p> Create by: &nbsp<%= @event.creator.name %></p>
+  <p> Created by: &nbsp<%= @event.creator.name %></p>
+  <div class="row">
   <% if current_user?(@event.creator) %>
   <div class="col-md-1">
     <%= button_to "delete", @event, method: :delete,
@@ -11,6 +12,24 @@
   <div class="col-md-1">
     <%= button_to "edit", edit_event_path(@event) , method: :get, class: "btn-primary" %>
   </div>
+  <% end%>
+  <% if !current_user.event_to_attend_ids.include?(@event.id) %>
+  <div class="col-md-2">
+  <%= form_for(:event_attendees, url: event_attendees_path) do |f| %>
+      <%= f.hidden_field :id, value: @event.id, class: 'form-control' %>
+      <%= f.submit "Attend Event", class: "btn btn-primary" %>
+    <% end %>
+  </div> 
   <% end %>
-
+  </div>
+  <% if @attendees.any? %>
+  <h3>Event attendees</h3>
+  <% end %>
+  <%= will_paginate @attendees%>
+    <% @attendees.each do |user| %>
+      <li>
+        <p><%= user.name %></p>
+      </li>
+      <% end %>
+  <%= will_paginate @attendees%>
 </ul>

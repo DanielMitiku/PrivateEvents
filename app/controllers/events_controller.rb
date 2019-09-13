@@ -13,6 +13,7 @@ class EventsController < ApplicationController
   def create
     @event = current_user.created_events.build(event_params)
     if @event.save
+      @event.event_attendees.create(attendee_id: current_user.id)
       flash[:success] = "Event has been created!"
       redirect_to @event
     else
@@ -22,6 +23,10 @@ class EventsController < ApplicationController
 
   def edit
     @event = current_user.created_events.find(params[:id])
+    if @event.time < Date.today
+      flash[:danger] = "Event already happened"
+      redirect_to root_path
+    end
   end
 
   def update
@@ -47,6 +52,7 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
+    @attendees = @event.attendees.paginate(page: params[:page])
   end
 
   private
